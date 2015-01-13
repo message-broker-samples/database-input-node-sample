@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmCompute.msgnode="ComIbmCompute.msgnode" xmlns:ComIbmDatabaseInput.msgnode="ComIbmDatabaseInput.msgnode" xmlns:ComIbmMQOutput.msgnode="ComIbmMQOutput.msgnode" xmlns:ComIbmMSLMapping.msgnode="ComIbmMSLMapping.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="DatabaseInput.msgflow"
+    nsPrefix="DatabaseInput.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="DatabaseInput" bundleName="DatabaseInput" pluginId="DatabaseInput sample"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/DatabaseInput sample/icons/full/obj16/DatabaseInput.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/DatabaseInput sample/icons/full/obj30/DatabaseInput.gif"/>
+    <composition>
+      <nodes xmi:type="ComIbmDatabaseInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="126,284" dataSource="DBINPUT" databaseInputExpression="esql://routine/#DatabaseInput_Retrieve_updates_from_database">
+        <translation xmi:type="utility:ConstantString" string="Retrieve updates from database"/>
+        <longDescription xmi:type="utility:ConstantString" string="This DatabaseInput node waits for events to occur on DBINPUT_EVENTS and uses these to populate messages with data from DBINPUT_CUSTOMER."/>
+      </nodes>
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="466,327" queueName="DBINPUTSAMPLE.OUTPUT">
+        <translation xmi:type="utility:ConstantString" string="Write to target queue"/>
+        <longDescription xmi:type="utility:ConstantString" string="This MQOutput node writes the XML tree to the DBINPUT.OUTPUT queue"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="323,241" computeExpression="esql://routine/#DatabaseInput_Create_Error_message.Main">
+        <translation xmi:type="utility:ConstantString" string="Create Error message"/>
+        <longDescription xmi:type="utility:ConstantString" string="This Compute node marshalls an error into an XML message containing:&#xD;&#xA;- The current message (if any)&#xD;&#xA;- The LocalEnvironment&#xD;&#xA;- The ExceptionList"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="455,242" queueName="DBINPUTSAMPLE.FAILURE">
+        <translation xmi:type="utility:ConstantString" string="Write to error queue"/>
+        <longDescription xmi:type="utility:ConstantString" string="This MQOutput node takes the XML representation of the failure and writes it to the DBINPUT.FAILURE queue"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMSLMapping.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="293,323" mappingExpression="msl://{default}#DatabaseInput_Map_to_common_output_type">
+        <translation xmi:type="utility:ConstantString" string="Map to common output type"/>
+        <longDescription xmi:type="utility:ConstantString" string="This Mapping node converts the DataObject retrieved from the database to the CustomerDetails XML type created in DatabaseInput Output message set"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.failure" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_5" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_6" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_6" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer/>
+    <stickyBoard/>
+  </eClassifiers>
+</ecore:EPackage>
