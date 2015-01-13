@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <!-- 
+
+       (C) COPYRIGHT International Business Machines Corp., 2010
+
+       All Rights Reserved * Licensed Materials - Property of IBM
+
+      -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="../../com.ibm.etools.msgbroker.samplesgallery/scripts/samples.js" type="text/javascript" xml:space="preserve"> </script>
+    <script src="../../org.eclipse.help/livehelp.js" type="text/javascript" xml:space="preserve"> </script>
+    <link href="../../com.ibm.etools.mft.doc/bip4.css" rel="stylesheet" type="text/css" />
+    <link href="../../com.ibm.etools.msgbroker.samplesgallery/css/gallery_common.css" rel="stylesheet" type="text/css" />
+    <link href="../../com.ibm.etools.msgbroker.samplesgallery/css/gallery_messagebroker.css" rel="stylesheet" type="text/css" />
+    
+    
+    <title>Cleaning up the database</title>
+  </head>
+  <body class="sampcont">
+    <h1>Cleaning up the database</h1>
+	  <p>When you have finished with the DatabaseInput Node sample, you can remove the database, 
+	    its ODBC definition, and the user identifier and password values that are associated with the data source name.</p>
+	  <p>Complete the following tasks to clean up the database environment:</p>
+    
+	  <ol>
+		  <li>Remove the database and ODBC definition.
+			  <p>Follow the instructions that are relevant to your database manager:</p>
+			  <ul>
+				  <li><a href="remove_db2.htm">Cleaning up DB2</a></li>
+				  <li><a href="remove_oracle.htm">Cleaning up Oracle</a></li>
+			  </ul><br/>
+		  </li>
+      
+		  <li>Remove the user identifier and password that are associated with the data source name DBINPUT.
+			  <p>Open a command console window in which you can run IBM Integration Bus commands. 
+			    Enter the following command to remove the user identifier and password.</p>
+			  <pre>mqsisetdbparms IB9NODE -n DBINPUT -d</pre>
+		  </li>
+	  </ol>      
+    
+    <p class="samplehome"><a href="overview.htm">Back to sample home</a></p>
+  </body>
+</html>

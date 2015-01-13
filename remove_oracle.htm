@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <!-- 
+
+       (C) COPYRIGHT International Business Machines Corp., 2010
+
+       All Rights Reserved * Licensed Materials - Property of IBM
+
+      -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="../../com.ibm.etools.msgbroker.samplesgallery/scripts/samples.js" type="text/javascript" xml:space="preserve"> </script>
+    <script src="../../org.eclipse.help/livehelp.js" type="text/javascript" xml:space="preserve"> </script>
+    <link href="../../com.ibm.etools.mft.doc/bip4.css" rel="stylesheet" type="text/css" />
+    <link href="../../com.ibm.etools.msgbroker.samplesgallery/css/gallery_common.css" rel="stylesheet" type="text/css" />
+    <link href="../../com.ibm.etools.msgbroker.samplesgallery/css/gallery_messagebroker.css" rel="stylesheet" type="text/css" />
+    
+    
+    <title>Cleaning up Oracle</title>
+  </head>
+  <body class="sampcont">
+    <h1>Cleaning up Oracle</h1>
+    <p>These instructions assume that you are using an Oracle database and 
+      guide you through the following tasks:</p>
+    <ul>
+      <li>Remove the tables called DBINPUT_CUSTOMER and DBINPUT_EVENTS that are 
+        used by the DatabaseInput Node sample.</li>  
+      <li>Remove the DBINPUT_SEQUENCE, DBIN_SEQ_TRIG and DBIN_CUST_EVENT 
+        sequence and triggers used by the sample.</li>
+      <li>Remove the ODBC definition for the database.</li>
+    </ul>
+    <p>To remove the database table and the ODBC definition:</p>
+
+    <ol> 
+      <li>In a command window enter the following command:
+        <pre>sqlplus &lt;uid&gt;/&lt;password&gt;
+DROP TRIGGER DBIN_CUST_EVENT;
+DROP TRIGGER DBIN_SEQ_TRIG;
+DROP SEQUENCE DBINPUT_SEQUENCE;
+DROP TABLE DBINPUT_EVENTS;
+DROP TABLE DBINPUT_CUSTOMER;</pre>
+      </li>
+        <li>To remove the ODBC definition for the DBINPUT database, 
+        (which has a data source name (DSN) of DBINPUT), undo the ODBC setup 
+        step; see <a href="../../com.ibm.etools.mft.doc/ah14440_.htm">Enabling 
+        ODBC connections to the databases</a> in the IBM Integration Bus 
+        documentation. </li>
+
+    </ol>
+    
+    <p class="setup"><a href="remove_db.htm">Back to Cleaning up the database</a></p>  
+    <p class="samplehome"><a href="overview.htm">Back to sample home</a></p>    
+  </body>
+</html>

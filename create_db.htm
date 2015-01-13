@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <!-- 
+
+       (C) COPYRIGHT International Business Machines Corp., 2010
+
+       All Rights Reserved * Licensed Materials - Property of IBM
+
+      -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="../../com.ibm.etools.msgbroker.samplesgallery/scripts/samples.js" type="text/javascript" xml:space="preserve"> </script>
+    <script src="../../org.eclipse.help/livehelp.js" type="text/javascript" xml:space="preserve"> </script>
+    <link href="../../com.ibm.etools.mft.doc/bip4.css" rel="stylesheet" type="text/css" />
+    <link href="../../com.ibm.etools.msgbroker.samplesgallery/css/gallery_common.css" rel="stylesheet" type="text/css" />
+    <link href="../../com.ibm.etools.msgbroker.samplesgallery/css/gallery_messagebroker.css" rel="stylesheet" type="text/css" />
+    
+    <title>Setting up the database</title>
+  </head>
+  <body class="sampcont">
+    <h1>Setting up the database</h1>
+    <p>You need a database with two tables and an ODBC definition to run 
+    the DatabaseInput Node sample. To access the database the integration node 
+    must be configured with a user identifier and password.</p>
+ 
+    <h2>Set up the database tables</h2>
+  	<p>Complete the following tasks to setup the database tables:</p>
+    <ol>
+	  <li>Create the database
+	  <p>Follow the instructions that are relevant to your database 
+	  manager:</p>
+	  <ul>
+	    <li><a href="create_db2.htm">Setting up DB2</a></li>
+	    <li><a href="create_oracle.htm">Setting up Oracle</a></li>
+	  </ul>
+	  <br/>
+	  </li>
+	  <li>Create the tables within the database, see 
+	  <a href="create_db_scripts.htm">Setting up the database tables by using SQL scripts</a>.</li>
+    </ol>
+
+    <h2>Set up the database environment for the integration node</h2>
+    <p>Complete the following tasks to setup the database environment for 
+    the integration node:</p>
+	<ol>
+      <li>Create an ODBC definition for the DBINPUT database with 
+      <span class="input">DBINPUT</span> as the data source name (DSN).
+      <p>For instructions, see <a href="../../com.ibm.etools.mft.doc/ah14440_.htm">Enabling ODBC connections to the databases</a> 
+      in the IBM Integration Bus documentation.</p>
+      </li>
+      <li>Specify the user identifier and password that are associated 
+      with the data source name <span class="input">DBINPUT</span>.
+      <p>Use the <span class="uicontrol">mqsisetdbparms</span> command to 
+      specify a user identifier and password that the integration node can use with 
+      the <span class="input">DBINPUT</span> data source. This user 
+      identifier must be the same user identifier that you used when you 
+      created the database in the previous step. The user identifier 
+      determines the database schema name, and the integration node must use the 
+      same user identifier when accessing the table. For example, if your 
+      user identifier is <span class="input">USERID</span>, the fully-qualified 
+      name of the <span class="uicontrol">CUSTOMER</span> table name is 
+      <span class="filepath">USERID.CUSTOMER</span>.</p>
+      <ol>
+        <li>Open a command console window in which you can run IBM Integration Bus commands. Enter the following command to specify 
+        the user identifier and password:
+        <pre>mqsisetdbparms IB9NODE -n DBINPUT -u &lt;user ID&gt; -p &lt;password&gt;</pre>
+        </li>
+        <li>Enter the following command to reload the integration server:
+        <pre>mqsireload IB9NODE -e DatabaseInput</pre>
+        </li>
+      </ol>
+      </li>        
+    </ol>
+    
+    <p class="samplehome"><a href="overview.htm">Back to sample home</a></p>
+  </body>
+</html>

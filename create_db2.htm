@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <!-- 
+
+       (C) COPYRIGHT International Business Machines Corp., 2010
+
+       All Rights Reserved * Licensed Materials - Property of IBM
+
+      -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="../../com.ibm.etools.msgbroker.samplesgallery/scripts/samples.js" type="text/javascript" xml:space="preserve"> </script>
+    <script src="../../org.eclipse.help/livehelp.js" type="text/javascript" xml:space="preserve"> </script>
+    <link href="../../com.ibm.etools.mft.doc/bip4.css" rel="stylesheet" type="text/css" />
+    <link href="../../com.ibm.etools.msgbroker.samplesgallery/css/gallery_common.css" rel="stylesheet" type="text/css" />
+    <link href="../../com.ibm.etools.msgbroker.samplesgallery/css/gallery_messagebroker.css" rel="stylesheet" type="text/css" />
+    
+    <title>Setting up DB2</title>
+  </head>
+  <body class="sampcont">
+    <h1>Setting up DB2</h1>
+    <p>These instructions assume that you are using DB2 Universal Database and guide you through the 
+      following tasks:</p>
+    <ul>
+      <li>Create a database called DBINPUT for use by the DatabaseInput Node sample</li>
+      <li>Bind the DB2 CLI packages</li>
+    </ul>
+    <p>
+      The following tasks are optional:
+    </p>
+    <ul>
+      <li>Create a table, DBINPUT_CUSTOMER, for use by the DatabaseInput Node sample</li>
+      <li>Create an event table, DBINPUT_EVENTS, to hold the information for which the DatabaseInput node polls</li>
+      <li>Create triggers to populate the DBINPUT_EVENTS table</li>
+    </ul>
+
+    <p>Complete the following steps:</p>
+    <ol>
+      <li>
+        Open a new document in a text editor, copy and paste the following script, 
+        which creates the DBINPUT database and runs the BIND utility,  
+        into the document, name the file <span class="filepath">dbinput.sql</span> and save the file.
+        
+        <ul>
+          <li><p>On <span>Windows</span>:</p>
+            You must replace install_dir with the path to your DB2 product installation directory, such as 
+            <span class="filepath">C:\PROGRA~1\IBM\SQLLIB</span>. You can find this location by using the 
+            db2level command:
+            <pre>
+CREATE DB DBINPUT
+CONNECT TO DBINPUT
+BIND 'install_dir\bnd\@db2cli.lst' blocking all grant public
+TERMINATE
+</pre></li>
+
+          <li><p>On <span>Linux</span>:</p>
+            You must replace install_dir with the path to your DB2 product installation directory. 
+            You can find this location by using the db2level command:
+            <pre>
+CREATE DB DBINPUT
+CONNECT TO DBINPUT
+BIND install_dir/bnd/@db2cli.lst grant public CLIPKG 5
+TERMINATE
+</pre></li>
+        </ul>
+      </li>
+      
+      <li>In a DB2 command window, enter the following command to ensure that DB2 is started: 
+        <pre>db2start</pre> 
+      </li>
+      
+      <li>In a DB2 command window, navigate to the folder that contains 
+        <span class="filepath">dbinput.sql</span> and enter the following command: 
+        <pre>db2 -vf dbinput.sql</pre>
+      </li>
+      </ol>      
+    <p><b>Next: </b>Choose one of the following options to create the database 
+      tables and triggers:</p> 
+      <ul>
+        <li>Return to the main sample page and choose one of 
+      the import options, see <a href="overview.htm">DatabaseInput Node sample</a>. 
+      After importing you can choose to set up the database from SQL scripts.</li> 
+        <li>If you prefer to create the tables manually, use the following instructions:</li>
+      </ul>
+
+    <h2 id="create_db2_100">Manually create the database tables and 
+      triggers</h2>
+    <p><b>Note.</b> When you create and access the database tables, be aware of the following issues:</p>
+    <ul>
+      <li>
+        When you run the script that creates the table in the database, the user identifier from which 
+        you run the script determines the database schema name. For example, if your user identifier is 
+        <span class="input">USERID</span>, the fully qualified name of the DBINPUT_CUSTOMER table is 
+        USERID.DBINPUT_CUSTOMER.</li>
+      <li>When you set a node to access a table, if the node is not using the same user identifier 
+      to access the database that you used when you created the database and tables, include the 
+      schema name in the integration node. For example, <span class="filepath">Database.USERID.DBINPUT_CUSTOMER</span>.</li>
+    </ul>
+    <p>Create the database tables and triggers:</p>
+    <ol>            
+      <li>
+        Open a new document in a text editor, copy and paste the following script, which creates the DBINPUT_CUSTOMER and DBINPUT_EVENTS 
+        table, into the document, name the file <span class="input">dbinput_create_tables_db2.sql</span> and save the file.
+        <pre> 
+CONNECT TO DBINPUT@
+
+DROP TABLE "DBINPUT_CUSTOMER"@
+CREATE TABLE "DBINPUT_CUSTOMER" (
+		"PKEY" VARCHAR(10) NOT NULL,
+		"FIRSTNAME" VARCHAR(20),
+		"LASTNAME" VARCHAR(20),
+		"CCODE" VARCHAR(10)
+	)
+	DATA CAPTURE NONE@
+
+DROP TABLE "DBINPUT_EVENTS"@
+CREATE TABLE "DBINPUT_EVENTS" (
+		"EVENT_ID" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY ( START WITH 1 INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 NO CYCLE NO CACHE),
+		"OBJECT_KEY" VARCHAR(80) NOT NULL,
+		"OBJECT_VERB" VARCHAR(40) NOT NULL
+	)
+	DATA CAPTURE NONE@
+
+
+ALTER TABLE "DBINPUT_CUSTOMER" ADD CONSTRAINT "DBINPUTCUSTOMERPK" PRIMARY KEY
+	("PKEY")@
+
+ALTER TABLE "DBINPUT_EVENTS" ADD CONSTRAINT "DBINPUTEVENTPK" PRIMARY KEY
+	("EVENT_ID")@
+
+CREATE TRIGGER "DBIN_CUST_CREATE" 
+	AFTER INSERT ON "DBINPUT_CUSTOMER"
+	REFERENCING  NEW AS N
+	FOR EACH ROW
+
+INSERT INTO DBINPUT_EVENTS (OBJECT_KEY, OBJECT_VERB)
+       VALUES (N.pkey, 'Create')@
+
+CREATE TRIGGER "DBIN_CUST_DELETE" 
+	AFTER DELETE ON "DBINPUT_CUSTOMER"
+	REFERENCING  OLD AS O
+	FOR EACH ROW
+
+INSERT INTO DBINPUT_EVENTS (OBJECT_KEY, OBJECT_VERB)
+       VALUES (O.pkey, 'Delete')@
+
+CREATE TRIGGER "DBIN_CUST_UPDATE" 
+	AFTER UPDATE ON "DBINPUT_CUSTOMER"
+	REFERENCING  NEW AS N
+	FOR EACH ROW
+
+INSERT INTO DBINPUT_EVENTS (OBJECT_KEY, OBJECT_VERB)
+       VALUES (N.pkey, 'Update')@
+
+TERMINATE@
+        </pre>
+      </li>
+      <li>Ensure the database is running and connected.</li>
+      <li>
+        Open a command window to access your database, 
+        move to the folder that contains <span class="filepath">dbinput_create_tables_db2.sql</span> 
+        and enter the following command: 
+        <pre>db2 -td@ -vf dbinput_create_tables_db2.sql</pre>
+        
+        <p>Wait for the script to finish running. 
+        If you are running the script for the first time, the following message is displayed twice:</p>
+        
+        <pre>
+DB21034E  The command was processed as an SQL statement because it was not a
+valid Command Line Processor command.  During SQL processing it returned:
+SQL0204N  &quot;DB2ADMIN.DBINPUT_EVENTS&quot; is an undefined name.  SQLSTATE=42704
+</pre>
+
+        Ignore both messages. 
+        The message is displayed because the script attempts to remove existing tables, 
+        DBINPUT_CUSTOMER and DBINPUT_EVENTS, before it creates the new tables, 
+        but if you have not run the script before, the script cannot find the existing tables.
+        <p>
+          If you are not running the script for the first time, you might see the following warning for each of the triggers:
+        </p>
+        <pre>
+SQL0280W  View, trigger or materialized query table
+"DB2ADMIN.DBIN_CUST_UPDATE" has replaced an existing inoperative view, trigger
+or materialized query table.  SQLSTATE=01595
+</pre>
+        You can also ignore these messages.
+      </li>   
+      
+    </ol>
+    
+
+    <p class="setup"><a href="create_db.htm">Back to Setting up the database</a></p>
+    <p class="samplehome"><a href="overview.htm">Back to sample home</a></p>
+  </body>
+</html>

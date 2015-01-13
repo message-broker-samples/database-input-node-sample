@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <!--
+
+
+
+       (C) COPYRIGHT International Business Machines Corp., 2010, 2011
+
+
+
+       All Rights Reserved * Licensed Materials - Property of IBM
+
+
+
+      -->
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="../../com.ibm.etools.msgbroker.samplesgallery/scripts/samples.js" type="text/javascript" xml:space="preserve"> </script>
+<script src="../../org.eclipse.help/livehelp.js" type="text/javascript" xml:space="preserve"> </script>
+<link href="../../com.ibm.etools.mft.doc/bip4.css" rel="stylesheet" type="text/css" />
+<link href="../../com.ibm.etools.msgbroker.samplesgallery/css/gallery_common.css" rel="stylesheet" type="text/css" />
+<link href="../../com.ibm.etools.msgbroker.samplesgallery/css/gallery_messagebroker.css" rel="stylesheet" type="text/css" />
+ 
+    <title>About the DatabaseInput Node sample</title>
+  </head>
+  <body class="sampcont">
+    <h1>About the DatabaseInput Node sample</h1>
+    <p>
+      Using a DatabaseInput node, you can create 
+      message flows that react quickly to changes to application data held in 
+      databases. The node retrieves updated data directly from the database. 
+      </p>
+      <p> The following diagram shows the sequence of events. When a change is 
+      introduced in the application data table, a trigger is 
+      fired, and the event table is populated with enough information to 
+      determine which rows have changed.
+    </p>
+    <p><img alt="Structure of a DatabaseInput node deployment" src="DBInput_Overview.gif"
+            style="width: 478px; height: 413px;" />
+    </p>
+
+    <p>
+      The structure of the application data tables used in this sample is shown in the following diagram:
+    </p>
+            <img alt="Sample Application Data tables with customer and address records"
+           src="DatabaseInput_Database_Model.gif"
+           style="width: 444px; height: 165px;" />
+    <p>
+      For example, if an entry is inserted into a customer table, the inserted 
+      rows in the customer and event tables look like the following table.
+    </p>
+      <table width="100%" cellpadding="5" cellspacing="0" border="1">
+        <tbody>
+          <tr>
+            <th>PKEY</th>
+            <th valign="top">FIRSTNAME</th>
+            <th valign="top">LASTNAME</th>
+            <th valign="top">CCODE</th>
+          </tr>
+          <tr>
+            <td>cust1</td>
+            <td valign="top">Joe</td>
+            <td valign="top">Bloggs</td>
+            <td valign="top">sales</td>
+          </tr>
+        </tbody>
+      </table>
+    <h3>The event table</h3>
+    <p>
+      The event table is a database table created by the user, generally within
+      the same schema as the application table or tables for which it is to store events.
+      The event table describes the type of change made to an
+      application table and an identifier for the changed row. The following
+      table shows some typical columns in an event table and reasons to include
+      it.</p>
+    <table width="80%" cellpadding="5" cellspacing="0" border="1">
+      <tbody>
+        <tr>
+          <th>Column name</th>
+          <th>Column function</th>
+          <th>Example value</th>
+        </tr>
+        <tr>
+          <td>EVENT_ID</td>
+          <td>Required. The primary key, which identifies which event is
+          being processed at any given time.</td>
+          <td><span class="input">1</span></td>
+        </tr>
+        <tr>
+          <td>OBJECT_KEY</td>
+          <td>Required. The identifying element of the changed row in the
+          application table, typically the element of the row in the primary key
+          column.</td>
+          <td><span class="input">cust1</span></td>
+        </tr>
+        <tr>
+          <td>OBJECT_VERB</td>
+          <td>Optional. The change performed, typically one of CREATE, UPDATE, or
+          DELETE. This event is used to distinguish a DELETE event, because in
+          this case the application table contains no row to retrieve when
+          the message for the flow is built.</td>
+          <td><span class="input">CREATE</span></td>
+        </tr>
+        <tr>
+          <td>OBJECT_NAME</td>
+          <td>Optional. The name of the application table that has changed. This
+          column is required if the DatabaseInput node is being used to support
+          updates to more than one Application table.</td>
+          <td><span class="input">customer</span></td>
+        </tr>
+        <tr>
+          <td>EVENT_PRIORITY</td>
+          <td>Optional. The priority of the event, for example, ir can be used to ensure that high
+          priority transactions are computed prior to lower value.</td>
+          <td><span class="input">1</span></td>
+        </tr>
+        <tr>
+          <td>EVENT_TIME</td>
+          <td>Optional. The time at which the operation was performed. Generally
+          used for logging or performance monitoring of the flow.</td>
+          <td><span class="input">2010-10-19T17:10:00</span></td>
+        </tr>
+        <tr>
+          <td>EVENT_STATUS</td>
+          <td>Optional. Used to determine if the event has already been
+          processed. Required if the events are not to be deleted or
+          archived after processing.</td>
+          <td><span class="input">0</span></td>
+        </tr>
+        <tr>
+          <td>EVENT_COMMENT</td>
+          <td>Optional. Free-form field, for example, it can be used to store the
+          outcome of the message processing if the event was not deleted after
+          processing.</td>
+          <td><span class="input">Processed with exceptions</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      <b>Note:</b></p>
+      <ul>
+      <li>The previous column names are examples only and other names can be
+      used. If you have a high-throughput application table, it is possible
+      that there might be multiple changes to a single row between retrieving
+      events from the event table. In this case the results of the latest change
+      is the one that is picked up by the flow. If intermediate changes
+      are required to be recorded, it might be beneficial to include more
+      details in the event table. This action is also of importance to events generated
+      by DELETE operations; because the row in the application table no longer
+      exists, all information required to successfully process the event must be
+      present in the event table.</li>
+      <li>To populate the preceding table, one or more triggers must be
+      created. A trigger is a database construct that can perform an SQL script
+      when a pre-defined action occurs. For example, it can insert a row in the
+      event table when an update in the application table occurs. For examples
+      of triggers, see <a href="create_db.htm">Setting up the database</a>.</li>
+      </ul>
+     
+    <p>
+      In the following example, the event table is very basic, with only three columns. 
+      An addition to the application table results in the following new row in the event table:
+    </p>
+    <table width="100%" cellpadding="5" cellspacing="0" border="1">
+        <tbody>
+          <tr>
+            <th>EVENT_ID</th>
+            <th valign="top">OBJECT_KEY</th>
+            <th valign="top">OBJECT_VERB</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td valign="top">cust1</td>
+            <td valign="top">Create</td>
+          </tr>
+        </tbody>
+      </table>
+    <p>
+      A new customer has been created with primary key <span class="input">cust1</span>. The
+      DatabaseInput node responds to the change, and processes the new row in a
+      message flow.
+    </p>
+    <h3>Processing options on completion</h3>
+    <p>
+      When the flow has completed processing of an event, one of three ways is used 
+      to complete processing:
+    </p>
+    <ol>
+      <li>Delete the event. Use this option if you do not want to store the
+      event for future reference.</li>
+      <li>Update the status column. Use this option if you want to keep a record of processed events, 
+      and your event table has a status column (<span class="uicontrol">EVENT_STATUS</span>).</li>
+      <li>Archive the event to a separate event table. Use this option if you
+      want to keep a record of events and want to keep the event table to a
+      minimal size.</li>
+    </ol>
+    <p> This sample uses the first
+    option and deletes the events upon successful completion.</p>
+    <p>The details of the message flow and the processing that it
+      performs are shown in the following section.</p>
+      
+    <h2>DatabaseInput message flow</h2>
+    <p>The DatabaseInput message flow takes the changes 
+        to the database, maps them to an output message format and places them 
+        on a WebSphere MQ queue:
+    </p>
+    <p><img alt="A screen capture of the DatabaseInput message flow."
+            src="DatabaseInput_message_flow.gif" />
+    </p>
+    <p>
+      Note that the flow includes a second MQOutput node to catch exceptions 
+      that might have occurred. This action avoids unnecessary retries and repeated 
+      processing of malformed ESQL or an incorrectly set up database or table.
+
+    </p>
+    <h2>Test scripts</h2>
+    <p>Three SQL scripts are used in this sample: </p>
+
+	  <ul>
+	    <li>An SQL script to insert a row in the application table</li>
+	    <li>An SQL script to modify a row in the application table</li>
+	    <li>An SQL script to delete a row in the application table</li>
+	    
+	  </ul>
+	  
+    <h3>Script to insert a row in the database</h3>
+    <pre>INSERT INTO DBINPUT_CUSTOMER
+      VALUES ('cust1', 'Fred', 'Flintstone', 'Dev');</pre>
+
+    <h3>Script to update a row in the database</h3>
+    <pre>UPDATE DBINPUT_CUSTOMER SET FIRSTNAME = 'Barney', LASTNAME = 'Rubble' WHERE PKEY='cust1';</pre>
+
+    <h3>Script to delete a row in the database</h3>
+    <pre>DELETE FROM DBINPUT_CUSTOMER WHERE PKEY='cust1';</pre>
+
+    <p class="samplehome"><a href="overview.htm">Back to sample home</a></p>
+    <p></p>
+  </body>
+</html>

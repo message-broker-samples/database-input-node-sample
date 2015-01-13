@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <!-- 
+
+       (C) COPYRIGHT International Business Machines Corp., 2010
+
+       All Rights Reserved * Licensed Materials - Property of IBM
+
+      -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="../../com.ibm.etools.msgbroker.samplesgallery/scripts/samples.js" type="text/javascript" xml:space="preserve"> </script>
+    <script src="../../org.eclipse.help/livehelp.js" type="text/javascript" xml:space="preserve"> </script>
+    <link href="../../com.ibm.etools.mft.doc/bip4.css" rel="stylesheet" type="text/css" />
+    <link href="../../com.ibm.etools.msgbroker.samplesgallery/css/gallery_common.css" rel="stylesheet" type="text/css" />
+    <link href="../../com.ibm.etools.msgbroker.samplesgallery/css/gallery_messagebroker.css" rel="stylesheet" type="text/css" />
+    
+    
+    <title>Setting up Oracle</title>
+  </head>
+  <body class="sampcont">
+    <h1>Setting up Oracle</h1>
+    <p>These instructions assume that you are using an Oracle database and guide you through the following 
+      tasks:</p>
+    <ul>
+      <li>Create a table, DBINPUT_CUSTOMER, for use by the DatabaseInput sample</li>
+      <li>Create an event table, DBINPUT_EVENTS, to hold the information for which the DatabaseInput node will poll</li>
+      <li>Create triggers to populate the DBINPUT_EVENTS table</li>
+    </ul>
+<p><b>Before you start</b> </p> 
+<p>You must create a database. <!-- KS Does it matter what they call it? How do they create the DB? --></p>
+    
+    <p><b>Note.</b> When you create and access the database tables, be aware of the following issues:</p>
+    <ul>
+      <li>When you run the script that creates the table in the database, the user identifier from which you 
+        run the script determines the database schema name. For example, if your user identifier is 
+        <span class="input">USERID</span>, the fully qualified name of the DBINPUT_CUSTOMER table is 
+        USERID.DBINPUT_CUSTOMER.</li>
+      <li>When you set an integration node to access a table, if the node is not using the same user identifier to 
+        access the database that you used when you created the database and tables, include the schema name 
+        in the node. For example, <span class="filepath">Database.USERID.DBINPUT_CUSTOMER</span>.</li>
+    </ul>
+    
+    
+    <ol>            
+      <li>
+        Open a new document in a text editor, copy and paste the following script, 
+        which creates the DBINPUT_CUSTOMER table, 
+        into the document, name the file <span class="filepath">dbinput_create_tables_oracle.sql</span> and save the file.
+        
+        
+        <pre>
+DROP TABLE "DBINPUT_CUSTOMER";
+CREATE TABLE "DBINPUT_CUSTOMER" (
+		"PKEY" VARCHAR(10) NOT NULL PRIMARY KEY,
+		"FIRSTNAME" VARCHAR(20),
+		"LASTNAME" VARCHAR(20),
+		"CCODE" VARCHAR(10)
+	);
+
+DROP TABLE "DBINPUT_EVENTS";
+CREATE TABLE "DBINPUT_EVENTS" (
+		"EVENT_ID" INTEGER PRIMARY KEY
+		"OBJECT_KEY" VARCHAR(80) NOT NULL,
+		"OBJECT_VERB" VARCHAR(40) NOT NULL
+	);
+
+CREATE SEQUENCE "DBINPUT_SEQUENCE" (start with 1 increment by 1 nomaxvalue);
+CREATE TRIGGER "DBIN_SEQ_TRIG" 
+  BEFORE INSERT ON "DBINPUT_EVENTS" 
+  FOR EACH ROW 
+  BEGIN 
+    SELECT DBINPUT_SEQUENCE.nextval INTO :NEW.EVENT_ID FROM dual; 
+  END;
+
+CREATE TRIGGER "DBIN_CUST_EVENT" 
+	AFTER INSERT OR DELETE OR UPDATE ON "DBINPUT_CUSTOMER"
+	REFERENCING  NEW AS N OLD AS O
+	FOR EACH ROW
+	BEGIN
+		IF inserting THEN
+			INSERT INTO DBINPUT_EVENTS(OBJECT_KEY, OBJECT_VERB)
+				VALUES(:N.PKEY,'Create');
+		END IF;
+		IF updating THEN
+			INSERT INTO DBINPUT_EVENTS(OBJECT_KEY, OBJECT_VERB)
+				VALUES(:N.PKEY,'Update');
+		END IF;
+		IF deleting THEN
+			INSERT INTO DBINPUT_EVENTS(OBJECT_KEY, OBJECT_VERB)
+				VALUES(:O.PKEY,'Delete');
+		END IF;
+	END;
+        </pre>
+      </li>
+      <li>In a command window that you have opened to access your database, move to the folder that contains 
+        <span class="filepath">dbinput_create_tables_oracle.sql</span> and enter the following command: 
+        <pre>sqlplus &lt;uid&gt;/&lt;password&gt; @dbinput_create_tables_oracle.sql</pre>
+        
+        <p>Wait for the script to finish running. If you are running the script for the first time, the 
+          following message is displayed:</p>
+        
+        <pre>ORA-00942: table or view does not exist</pre>
+
+        Ignore this message. The message is displayed because the script attempts to remove existing tables,  
+        DBINPUT_CUSTOMER and DBINPUT_EVENTS, before it creates new tables, but if you have not run the script before, the 
+        the tables do not exist.</li>   
+      
+    </ol>
+    
+    <p class="setup"><a href="create_db.htm">Back to Setting up the database</a></p>
+    <p class="samplehome"><a href="overview.htm">Back to sample home</a></p>
+    
+  </body>
+</html>

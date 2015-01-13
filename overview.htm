@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <!-- 
+
+       (C) COPYRIGHT International Business Machines Corp., 2010
+
+       All Rights Reserved * Licensed Materials - Property of IBM
+
+      -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>DatabaseInput Node sample</title>
+    <script src="../../com.ibm.etools.msgbroker.samplesgallery/scripts/samples.js" type="text/javascript" xml:space="preserve"> </script>
+    <script src="../../org.eclipse.help/livehelp.js" type="text/javascript" xml:space="preserve"> </script>
+    <link href="../../com.ibm.etools.mft.doc/bip4.css" rel="stylesheet" type="text/css" />
+    <link href="../../com.ibm.etools.msgbroker.samplesgallery/css/gallery_common.css" rel="stylesheet" type="text/css" />
+    <link href="../../com.ibm.etools.msgbroker.samplesgallery/css/gallery_messagebroker.css" rel="stylesheet" type="text/css" />
+
+
+  </head>
+  <body class="frontpage">
+    <h1 class="tuttitle">DatabaseInput Node sample</h1>
+
+    
+    <p class="description">
+      The DatabaseInput Node sample shows how to receive and process 
+      database updates by using an integration node message flow. 
+    </p>
+
+    <p><b>NOTE</b>: In WebSphere Message Broker Version 8.0, IBM Integration Bus 9.0 and later, message model schema files 
+	contained in libraries are the preferred way to model messages for most data formats, 
+	including the new DFDL domain. 
+	Message sets continue to be supported, and are required if you use the MRM or IDOC domains. 
+	You can continue to import and deploy message sets for use in message flows. 
+	However, if you need to create one or more message sets, message definitions, or message categories 
+	when using this sample, you must first enable message set development in the IBM Intgration Toolkit. 
+	For more information, see <a href="../../com.ibm.etools.mft.doc/bd40798_.htm">Enabling message set development</a> in the IBM Integration Bus documentation.</p>
+
+    <p>Click the following links to find out more about
+      the sample and how to get the prebuilt sample to run by using the
+      wizards.</p>
+    <p class="timer"><span class="timertitle">Import and deploy:</span> 5 minutes</p>
+    <p class="read"><a href="introduction.htm">Read about the sample</a></p>
+    <p class="setup"><a href="create_db.htm">Set up the database</a></p>
+    <p class="import">You can set up the sample in one of the following ways:</p>
+    <ul class="navlinks">
+<!--
+      <li>
+        <a href="javascript:liveAction(&quot;com.ibm.etools.mft.eou&quot;,&quot;com.ibm.etools.mft.eou.wizards.sampleprepwiz.SamplePrepWizActiveHelp&quot;,&quot;select, com.ibm.etools.mft.samples.dbinputnode.res, 2&quot;)" shape="rect">
+          Import and deploy the sample
+        </a>
+        <p>This option imports the sample files into your workspace and deploys the sample to the integration node. 
+          This option also sets up additional resources for the sample, for example, WebSphere MQ queues.
+        You must have performed the steps outlined in <a href="create_db.htm">Set up the database</a> before selecting this option</p>
+      </li>
+-->
+      <li>
+        <a href="javascript:liveAction(&quot;com.ibm.etools.mft.eou&quot;,&quot;com.ibm.etools.mft.eou.wizards.sampleprepwiz.SamplePrepWizActiveHelp&quot;,&quot;select, com.ibm.etools.mft.samples.dbinputnode.res, 1&quot;)" shape="rect">
+          Import and partially deploy the sample</a>
+        <p>This option imports the sample files into your workspace. 
+          This option also creates an integration server and WebSphere MQ queues. 
+          Use this option if you are not familiar with setting up 
+          database tables. An SQL script to set up the tables is 
+          imported into your workspace; see 
+          <a href="create_db_scripts.htm">Setting up the database tables by using SQL scripts</a>.  
+          Run this script before deploying the broker archive (BAR) file to the integration server.
+        </p>
+      </li>
+      <li><a href="javascript:liveAction(&quot;com.ibm.etools.mft.eou&quot;,&quot;com.ibm.etools.mft.eou.wizards.sampleprepwiz.SamplePrepWizActiveHelp&quot;,&quot;select, com.ibm.etools.mft.samples.dbinputnode.res, 0&quot;)" shape="rect">Import
+          the sample</a>
+        <p>This option imports the sample files into your workspace. 
+        Additional manual steps are required to configure the sample for testing</p>
+      </li>
+    </ul>
+    <p class="warning">You can import or import and deploy a sample only when you use the 
+    information center that is integrated with the IBM Integration Toolkit.</p>
+    <p class="running"><a href="running.htm">Run the sample</a> </p>
+<!--    <p class="extend"><a href="extending.htm">Extend the sample</a></p>-->
+    <p class="setup">When you have finished with the sample, you can remove the 
+      database: <a href="remove_db.htm">Cleaning up the database</a>.</p>
+    <p class="remove"> When you have finished with the sample, you can
+      remove it in one of the following ways:</p>
+    <ul class="navlinks">
+      <li><a href="javascript:liveAction(&quot;com.ibm.etools.mft.eou&quot;,&quot;com.ibm.etools.mft.eou.wizards.sampleprepwiz.SamplePrepWizActiveHelp&quot;,&quot;select, com.ibm.etools.mft.samples.dbinputnode.res, 2&quot;)" shape="rect">Remove
+          the sample from the integration node, but leave its resources in the workspace</a></li>
+      <li><a href="javascript:liveAction(&quot;com.ibm.etools.mft.eou&quot;,&quot;com.ibm.etools.mft.eou.wizards.sampleprepwiz.SamplePrepWizActiveHelp&quot;,&quot;select, com.ibm.etools.mft.samples.dbinputnode.res, 3&quot;)" shape="rect">Remove
+          the sample from the integration node and the workspace</a></li>
+    </ul>
+  </body>
+</html>
