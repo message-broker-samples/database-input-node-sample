@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<msgCoreModel:MRMessageSet xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:msgCoreModel="http://www.ibm.com/msgmodel/2003/MSGCoreModel" name="DatabaseInput Database Message" parserDomain="DataObject" msetVersionNo="" currentMessageSetId="//@MRMessageSetID.0">
-  <MRMessageSetID repositoryId="-851374675" messageSetId="1"/>
-</msgCoreModel:MRMessageSet>
