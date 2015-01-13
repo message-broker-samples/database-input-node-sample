@@ -1,0 +1,206 @@
+
+div.sampleLinks{
+	margin-left: .2em;
+	}
+
+div.cathead{
+	margin-top: 1em;
+	font-size: medium;
+	font-weight: bold;
+}
+
+div.sampleTimeRequired, p.sampleTimeRequired{
+	padding-left: 0em;
+	font-weight: bolder;
+	background-repeat: no-repeat;
+	width: 100%;
+}
+div.impLinks {
+	background-image: url(../images/samps_box-bg.gif);
+	background-repeat: repeat-y;
+	background-position: right;
+	float: left;
+	width: 45%;
+	padding: .5em;
+	padding-left: 1em;
+	border-width: 1em;
+	border: none;
+	border-color: #CCCCCC;
+	padding-bottom: 1em;
+	line-height: 2.5;
+}
+   div.support {
+	float: right;
+	border: none;
+  padding: .5em;
+	padding-left: 1em;
+	border-width: 1em;
+	border: none;
+	padding-bottom: 1em;
+	line-height: 2.5;}
+
+div.setupLink {
+	clear: both;
+	float: left;
+	width: 98%;
+}
+a.setupLink {
+	padding-left: 2em;
+	background-image: url(../images/link_setup_icon24.gif);
+	background-repeat: no-repeat;
+	width: 100%;
+}
+a.importLink, div.importLink {
+	clear: both;
+	padding-left: 2em;
+	float: left;
+	background-image: url(../images/link_import_icon24.gif);
+	background-repeat: no-repeat;
+	width:100%;
+	}
+ 
+ a.setupImport, div.setupImport {
+	padding-left: 2em;
+	background-image: url(../images/link_setup_icon24.gif);
+background-repeat: no-repeat;
+	}
+a.configureLink {
+	background-image: url(../images/link_configure_icon24.gif);
+	padding-left: 2em;
+	background-repeat: no-repeat;
+	width: 100%;
+}
+
+div.detailsLink {
+	width: 100%;
+	}
+	
+a.detailsLink {
+	padding-left: 2em;
+	background-image: url(../images/link_readabout_icon24.gif);
+	background-repeat: no-repeat;
+	width: 100%;
+}
+a.buildLink {
+		padding-left: 2em;
+background-image: url(../images/link_howtobuild_icon24.gif);
+	background-repeat: no-repeat;
+	width: 100%;
+}
+a.howLink {
+		padding-left: 2em;
+background-image: url(../images/link_howyoubuild_icon24.gif);
+	background-repeat: no-repeat;
+	width: 100%;
+}
+div.demoLink {
+	padding-left: 2em;
+	background-image: url(../images/link_demo_icon24.gif);
+	background-repeat: no-repeat;
+	width: 100%;
+}
+
+a.helpLink {
+	padding-left: 2em;
+	background-image: url(../images/link_help_icon24.gif);
+	background-repeat: no-repeat;
+	width: 100%;
+}
+
+a.pdfLink {
+	padding-left: 2em;
+	background-image: url(../images/link_pdf_icon24.gif);
+	background-repeat: no-repeat;
+	width: 100%;
+}
+
+a.sampleLink {
+	padding-left: 2em;
+   background-image: url("../images/link_sample_icon24.gif");
+	background-repeat: no-repeat;
+	width: 100%;
+}
+
+a.webLink {
+	padding-left: 2em;
+	background-image: url(../images/link_web_icon24.gif);
+	background-repeat: no-repeat;
+	width: 100%;
+}
+
+div.tutorialLink, a.tutorialLink {
+	padding-left: 2em;
+	background-image: url(../images/link_tutorial_icon24.gif);
+	background-repeat: no-repeat;
+	width: 100%;
+}
+div.authorLink, a.authorLink {
+	padding-left: 2em;
+	background-image: url(../images/topic.gif);
+	background-repeat: no-repeat;
+	width: 100%;
+}
+
+   div.links {
+	margin-left: 0em;
+	border: none;
+	clear: both;
+}
+
+ 
+    div.rest {
+	margin-top: 0em;
+	margin-left: 0em;
+	width: 100%;
+}
+    div.desc {
+	width: 100%;
+	padding-top: 1em;
+	clear: both;
+}
+	
+	div.ggroup {
+	
+	margin-left: 0em;
+	margin-bottom: 1em;
+	margin-right: -1em;
+	margin-top: 0em;
+}
+
+	div.graphics {
+
+	width: 100% ;
+	padding-left: 0em;
+border-top: thin solid;	
+border-color: #CCCCCC;
+	border-top-width: .15em;
+	padding-top:1em;
+	margin-top:1em;
+}
+
+	div.gimage {
+		float: left;
+		margin: 0em;
+	margin-right: 0em;
+	margin-top: 0em;
+	height: 124px;
+	width: 124px;
+	border: thin solid;
+	margin-bottom: 1em;
+
+} 
+
+	div.gdesc  {
+	margin-top: 0em;
+	padding-left: 128px;
+	margin-bottom:1em;
+}
+div.familylinks, div.relinfo {
+	height: 0em;
+	display: none;
+}
+
+li {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}

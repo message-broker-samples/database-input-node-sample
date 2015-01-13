@@ -1,0 +1,199 @@
+/***************************************************/
+/***************************************************/
+/* Stylesheet for WebSphere Message Broker samples */
+/***************************************************/
+/***************************************************/
+
+body {
+	margin-left: 30px; margin-right: 30px;
+}
+
+body.frontpage {
+	
+}
+
+h1.tuttitle {
+	margin-top: 10px;
+}
+
+/*******************
+ * images as links *
+ *******************/
+a img {
+   border               : 0;
+   margin               : 10px;
+   vertical-align       : middle;
+}
+
+/************/
+/*main links*/
+/************/
+
+.timer {
+	background-repeat: no-repeat;
+	background-image: url(../images/time_obj.gif);
+	padding-left: 30px;
+	margin-bottom: 10px;
+}
+
+.warning {
+	background-repeat: no-repeat;
+	background-image: url(../images/warning.gif);
+	padding-left: 30px;
+	margin-bottom: 10px;
+}
+
+.timertitle {
+	font-weight: 900;
+}
+
+.setup, .running {
+	background-repeat: no-repeat;
+	background-image: url(../images/setup_obj.gif);
+	padding-left: 30px;
+	margin-bottom: 10px;
+	
+}
+
+.running {
+	background-repeat: no-repeat;
+	background-image: url(../images/start_obj.gif);
+	padding-left: 30px;
+	margin-bottom: 10px;
+	
+}
+
+.read {
+	background-repeat: no-repeat;
+	background-image: url(../images/details_obj.gif);
+	padding-left: 30px;
+	margin-bottom: 10px;
+}
+
+.samplehome {
+	background-repeat: no-repeat;
+	background-image: url(../images/sample_home.gif);
+	padding-left: 30px;
+
+}
+
+.import {
+	background-repeat: no-repeat;
+	background-image: url(../images/import_obj.gif);
+	padding-left: 30px;
+	margin-bottom: 10px;
+}
+
+
+.build, .extend {
+	background-repeat: no-repeat;
+	background-image: url(../images/biy_obj.gif);
+	padding-left: 30px;
+	margin-bottom: 10px;
+}
+
+.remove {
+	background-repeat: no-repeat;
+	background-image: url(../images/export_obj.gif);
+	padding-left: 30px;
+}
+
+
+/*Sub-lists within the main links*/
+
+ul.navlinks {
+	line-height: 1.5em;
+	margin-left: 70px;
+	padding-left: 0;
+}
+
+/************************************************/
+/* Highlighting - for use by samples doc authors*/
+/************************************************/
+
+
+/*UI controls that the user clicks, eg buttons, menu items, etc*/
+.uicontrol {
+	font-weight: bold
+}
+
+/*Filepaths, file names, directory names that don't stand out very clearly from the surrounding text*/
+.filepath {
+	font-family: "Andale Mono", "Courier New", Courier, monospace;
+}
+
+/*System and application messages*/
+.msgs {
+	font-family: "Andale Mono", "Courier New", Courier, monospace;
+}
+
+/*Definition lists*/
+dl {
+	margin-left: 40px
+}
+dt {
+	font-weight: bold
+}
+
+/*Ordered lists*/
+ol {
+	list-style-type: decimal;
+}
+
+ol ol {
+	list-style-type: lower-alpha;
+}
+
+ol ol ol {
+	list-style-type: lower-roman;
+}
+
+/*User input*/
+.input {
+	font-family: "Andale Mono", "Courier New", Courier, monospace;
+}
+
+/********************************************************
+ * Tables
+ ********************************************************/
+table {
+   font-size            : 100%;
+   color                : black;  /* V2: darkblue */
+   width                : 100%;
+   background           : white;  /* V2: #eceff7 */
+   border-collapse : collapse;
+   text-align			: left;
+   margin-top           : 1em;
+   margin-bottom        : 1em;
+   margin-left          : 0em;
+   margin-right         : 0em;
+} 
+td {
+	font-size            : 95%;
+   color                : black;  /* V2: darkblue */
+   background           : white;  /* V2: #eceff7 */
+   vertical-align       : top;
+   padding-top          : 0.1em;
+   padding-bottom       : 0.3em;
+   padding-left         : 1em;
+   padding-right        : 1em;
+} 
+th {
+   font-size            : 105%;
+   color                : black;  /* V2: darkblue */
+   background           : #eceff7;  /* V2: #e3e8f0 */
+   vertical-align       : top;
+   padding-top          : 0.1em;
+   padding-bottom       : 0.3em;
+   padding-left         : 1em;
+   padding-right        : 1em;
+} 
+/*comments - for working drafts of doc only*/
+.comment, .commentblk {
+   color: #0000dd;
+}
+.commentblk {
+   margin: .5em 3em .5em 3em;
+   padding: .5em 1.5em .5em 1.5em;
+   border: 2px solid #000099;
+}
