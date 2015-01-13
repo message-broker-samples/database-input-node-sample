@@ -45,36 +45,13 @@
     <p class="setup"><a href="create_db.htm">Set up the database</a></p>
     <p class="import">You can set up the sample in one of the following ways:</p>
     <ul class="navlinks">
-<!--
-      <li>
-        <a href="javascript:liveAction(&quot;com.ibm.etools.mft.eou&quot;,&quot;com.ibm.etools.mft.eou.wizards.sampleprepwiz.SamplePrepWizActiveHelp&quot;,&quot;select, com.ibm.etools.mft.samples.dbinputnode.res, 2&quot;)" shape="rect">
-          Import and deploy the sample
-        </a>
-        <p>This option imports the sample files into your workspace and deploys the sample to the integration node. 
-          This option also sets up additional resources for the sample, for example, WebSphere MQ queues.
-        You must have performed the steps outlined in <a href="create_db.htm">Set up the database</a> before selecting this option</p>
-      </li>
--->
-      <li>
-        <a href="javascript:liveAction(&quot;com.ibm.etools.mft.eou&quot;,&quot;com.ibm.etools.mft.eou.wizards.sampleprepwiz.SamplePrepWizActiveHelp&quot;,&quot;select, com.ibm.etools.mft.samples.dbinputnode.res, 1&quot;)" shape="rect">
-          Import and partially deploy the sample</a>
-        <p>This option imports the sample files into your workspace. 
-          This option also creates an integration server and WebSphere MQ queues. 
-          Use this option if you are not familiar with setting up 
-          database tables. An SQL script to set up the tables is 
-          imported into your workspace; see 
-          <a href="create_db_scripts.htm">Setting up the database tables by using SQL scripts</a>.  
-          Run this script before deploying the broker archive (BAR) file to the integration server.
-        </p>
-      </li>
-      <li><a href="javascript:liveAction(&quot;com.ibm.etools.mft.eou&quot;,&quot;com.ibm.etools.mft.eou.wizards.sampleprepwiz.SamplePrepWizActiveHelp&quot;,&quot;select, com.ibm.etools.mft.samples.dbinputnode.res, 0&quot;)" shape="rect">Import
-          the sample</a>
+
+      <li><a href="https://github.com/hosie/database-input-node-sample/releases/download/v0.1/database-input-node-sample-PI.zip" shape="rect">Download the sample files</a>
         <p>This option imports the sample files into your workspace. 
         Additional manual steps are required to configure the sample for testing</p>
       </li>
     </ul>
-    <p class="warning">You can import or import and deploy a sample only when you use the 
-    information center that is integrated with the IBM Integration Toolkit.</p>
+    
     <p class="running"><a href="running.htm">Run the sample</a> </p>
 <!--    <p class="extend"><a href="extending.htm">Extend the sample</a></p>-->
     <p class="setup">When you have finished with the sample, you can remove the 
